@@ -34,6 +34,11 @@ public class User implements Serializable {
 	private String emailAddressRepeat;
 	private String password;
 	private String passwordRepeat;
+	
+	public User() {
+		
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
