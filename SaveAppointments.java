@@ -4,8 +4,15 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.jsf.FacesContextUtils;
+
+import com.faikturan.hastaneotomasyonu.entity.Takenappointments;
 import com.faikturan.hastaneotomasyonu.entity.Uygunrandevular;
+import com.faikturan.hastaneotomasyonu.service.SaveAppointmentsService;
 
 
 @ManagedBean
@@ -23,6 +30,8 @@ public class SaveAppointments implements Serializable {
 	String clinicPlace;
 	String doctor;
 	private String clockId;
+	Uygunrandevular selectedAppointment;
+	String operationResult;
 	
 	public String getCurrentCity() {
 		return currentCity;
@@ -102,9 +111,24 @@ public class SaveAppointments implements Serializable {
 	public void setOperationResult(String operationResult) {
 		this.operationResult = operationResult;
 	}
-	Uygunrandevular selectedAppointment;
-	String operationResult;
 	
+	
+	public void saveToDb(ActionEvent event) throws Exception{
+		ApplicationContext context = 
+				FacesContextUtils.getWebApplicationContext
+				(FacesContext.getCurrentInstance());
+		SaveAppointmentsService saveAppointmentsService = 
+				(SaveAppointmentsService) context.getBean("saveAppointmentsService");
+		Takenappointments takenappointmentsObject = new Takenappointments();
+		takenappointmentsObject.setDoktorid(selectedAppointment.getDoktorid());
+		takenappointmentsObject.setPatientid(comingIdentityNumber);
+		takenappointmentsObject.setHospitalname(hospital);
+		takenappointmentsObject.setClinicname(clinic);
+		takenappointmentsObject.setClinicplace(clinicPlace);
+		takenappointmentsObject.setClockid(Integer.parseInt(clockId));
+		operationResult = saveAppointmentsService.saveAppointmentToDb(takenappointmentsObject);
+		
+	}
 	
 	
 	
