@@ -126,7 +126,8 @@ public class SaveAppointments implements Serializable {
 		takenappointmentsObject.setClinicname(clinic);
 		takenappointmentsObject.setClinicplace(clinicPlace);
 		takenappointmentsObject.setClockid(Integer.parseInt(clockId));
-		operationResult = saveAppointmentsService.saveAppointmentToDb(takenappointmentsObject);
+		operationResult = saveAppointmentsService.
+				saveAppointmentToDb(takenappointmentsObject);
 		
 	}
 	
