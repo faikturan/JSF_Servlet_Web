@@ -43,7 +43,7 @@ public class GetAvailableAppointments implements Serializable {
 				("availebleAppointmentsService");
 		setRenderingDataTable(true);
 		
-		return AvailableAppointmentsService.getAvailableAppointments
+		return AvailableAppointmentsService.getAllAvailableAppointments
 				(saveAppointmentsObjectInAvailableAppointments.getHospital(),
 						saveAppointmentsObjectInAvailableAppointments.clinic,
 						saveAppointmentsObjectInAvailableAppointments.clinicPlace);
