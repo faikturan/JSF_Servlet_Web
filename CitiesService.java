@@ -17,6 +17,15 @@ public class CitiesService {
 	List<String> cities;
 	int cityId;
 	
+	public List<Iller> getAllResults()
+	{
+		return cityResults;
+	}
+	
+	public void setAllResults(List<Iller> cityResults)
+	{
+		this.cityResults = cityResults;
+	}
 	public CitiesFacade getCitiesFacade() {
 		return citiesFacade;
 	}
@@ -25,27 +34,13 @@ public class CitiesService {
 		this.citiesFacade = citiesFacade;
 	}
 
-	public List<Iller> getCityResults() {
-		return cityResults;
-	}
-
-	public void setCityResults(List<Iller> cityResults) {
-		this.cityResults = cityResults;
-	}
-
-
-
 	public List<String> getCities() {
 		return cities;
 	}
 
-
-
 	public void setCities(List<String> cities) {
 		this.cities = cities;
 	}
-
-
 
 	public int getCityId() {
 		return cityId;
@@ -73,5 +68,6 @@ public class CitiesService {
 		}
 		return cities;
 	}
+
 
 }
