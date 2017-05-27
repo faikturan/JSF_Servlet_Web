@@ -172,4 +172,16 @@ public class GetPatientInformation implements Serializable {
 		p = patientsService.getPatientInfo(saveAppointments.comingIdentityNumber);
 		
 	}
+	
+	public void updatePatientInfo() 
+	{
+		ApplicationContext context = 
+				FacesContextUtils.getWebApplicationContext
+				(FacesContext.getCurrentInstance());
+		PatientsService  patientsService = 
+				   (PatientsService) context.getBean("patientService");
+		
+		messageForUpdate = patientsService.updatePatientInfo(p);
+		
+	}
 }
