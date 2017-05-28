@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Hastane Otomasyonu</title>
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{LoginControlClass.authorizedUserControl}"></f:event>
+	</f:metadata>
+	<meta http-equiv="content-type" content="text/html" ; charset="utf-8"></meta>
+</h:head>
+<h:body>
+	<h:outputStylesheet library="css" name="cssfile.css" />
+	<center style="margin-top: 100px;">
+		<h:form id="form" prependId="false">
+			<center>HASTANE OTOMASYONU PROJESİ</center>
+			<center>
+				<h3>RANDEVU ALMA SİSTEMİ</h3>
+			</center>
+			<div id="divClass1">
+			<h:panelGrid columns="2" style="margin-top:60px">
+			<center>
+			<h:outputText value="Üye Giriş Ekranı" />
+			</center>
+			<h:outputText value="" />
+			<h:outputText value="Kimlik Numaranız" style="margin-left: 15px;" />
+			<p:inputMask id="j_username" mask="99999999999" 
+			style="width:130px;" required="true" maxlength="100" size="30"
+			value="#{saveAppointments.comingIdentityNumber}"
+			requiredMessage="Kullanıcı adı alanı boş bırakılamaz..."/>
+			
+			
+			<h:outputText value="Parola" style="margin-left: 15px;" />
+			<p:inputMask id="j_password" style="width:130px;" required="true" 
+			maxlength="50" size="30"
+			value="#{saveAppointments.comingPassword}"
+			requiredMessage="Parola alanı boş bırakılamaz..."/>
+			
+			<h:outputText value="Doğrulama Kodu" />
+			<p:captcha label="Captcha"
+			requiredMessage="Doğrulama Kodu Boş Bırakılamaz..." />
+			
+			<h:panelGrid columns="2">
+			<h:button value="Yeni Üye" outcome="savingPatients.xhtml" />
+			<h:button value="Şifremi Unuttum" outcome="remindingPassword.xhtml" />
+			</h:panelGrid>
+			
+			<h:commandButton action="#{LoginControlClass.login()}" value="Giriş"
+			style="margin-left: 265px;" />
+			</h:panelGrid>
+			<h:panelGrid columns="1">
+			<h:outputText value=
+			"Soru ve görüşleriniz için bilgi@faikturan.com adresine mail atınız."
+			style="margin-left: 5px;" />
+			<h:outputLabel 
+			value="#{sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}" 
+			rendered="#{!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+			style="margin-left:5px; color:red"/>
+			<p:messages showDetail="true" />		
+		</h:panelGrid>
+			</div>
+		</h:form>
+	</center>
+	<f:view>
+
+	</f:view>
+</h:body>
+</html>
