@@ -51,33 +51,33 @@
     </bean>
     
     <!-- PostConstruct Metodunun Çalışması İçin Lazım -->
-    <context:component-scan base-package="com.ilkgunel.hastaneotomasyonu.controller"/>
+    <context:component-scan base-package="com.faikturan.hastaneotomasyonu.controller"/>
      
     <context:annotation-config/>
     
     <!-- Şehirler Sınıfının Spring İle Gönderilmesi -->
-    <bean id="saveAppointmentsService" class="com.ilkgunel.hastaneotomasyonu.service.SaveAppointmentsService"></bean>
+    <bean id="saveAppointmentsService" class="com.faikturan.hastaneotomasyonu.service.SaveAppointmentsService"></bean>
     
-    <bean id="savePatientsService" class="com.ilkgunel.hastaneotomasyonu.service.SavePatientsService"></bean>
-    <bean id="randevuSaatleriFacade" class="com.ilkgunel.hastaneotomasyonu.facade.RandevuSaatleriFacade"></bean>
-    <bean id="takenAppointmentsFacade" class="com.ilkgunel.hastaneotomasyonu.facade.TakenAppointmentsFacade"></bean>
-    <bean id="citiesFacade" class="com.ilkgunel.hastaneotomasyonu.facade.CitiesFacade"></bean>
-    <bean id="districtFacade" class="com.ilkgunel.hastaneotomasyonu.facade.DistrictsFacade"></bean>
-    <bean id="citiesService" class="com.ilkgunel.hastaneotomasyonu.service.CitiesService"></bean>
-    <bean id="districtService" class="com.ilkgunel.hastaneotomasyonu.service.DistrictService"></bean>
-    <bean id="hospitalService" class="com.ilkgunel.hastaneotomasyonu.service.HospitalsService"></bean>
-    <bean id="hospitalFacade" class="com.ilkgunel.hastaneotomasyonu.facade.HospitalFacade"></bean>
-    <bean id="doctorFacade" class="com.ilkgunel.hastaneotomasyonu.facade.DoctorFacade"></bean>
-    <bean id="doctorService" class="com.ilkgunel.hastaneotomasyonu.service.DoctorService"></bean>
-    <bean id="clinicService" class="com.ilkgunel.hastaneotomasyonu.service.ClinicService"></bean>
-    <bean id="clinicFacade" class="com.ilkgunel.hastaneotomasyonu.facade.ClinicFacade"></bean>
-    <bean id="patientService" class="com.ilkgunel.hastaneotomasyonu.service.PatientsService"></bean>
-    <bean id="patientFacade" class="com.ilkgunel.hastaneotomasyonu.facade.PatientFacade"></bean>
-    <bean id="clinicPlacesService" class="com.ilkgunel.hastaneotomasyonu.service.ClinicPlacesService"></bean>
-    <bean id="clinicPlacesFacade" class="com.ilkgunel.hastaneotomasyonu.facade.ClinicPlacesFacade"></bean>
-    <bean id="availableAppointmentsService" class="com.ilkgunel.hastaneotomasyonu.service.AvailableAppointmentsService"></bean>
-    <bean id="availableAppointmentsFacade" class="com.ilkgunel.hastaneotomasyonu.facade.AvailableAppointmentsFacade"></bean>
-    <bean id="takenAppointmnetsService" class="com.ilkgunel.hastaneotomasyonu.service.TakenAppointmentsService"></bean>
+    <bean id="savePatientsService" class="com.faikturan.hastaneotomasyonu.service.SavePatientsService"></bean>
+    <bean id="randevuSaatleriFacade" class="com.faikturan.hastaneotomasyonu.facade.RandevuSaatleriFacade"></bean>
+    <bean id="takenAppointmentsFacade" class="com.faikturan.hastaneotomasyonu.facade.TakenAppointmentsFacade"></bean>
+    <bean id="citiesFacade" class="com.faikturan.hastaneotomasyonu.facade.CitiesFacade"></bean>
+    <bean id="districtFacade" class="com.faikturan.hastaneotomasyonu.facade.DistrictsFacade"></bean>
+    <bean id="citiesService" class="com.faikturan.hastaneotomasyonu.service.CitiesService"></bean>
+    <bean id="districtService" class="com.faikturan.hastaneotomasyonu.service.DistrictService"></bean>
+    <bean id="hospitalService" class="com.faikturan.hastaneotomasyonu.service.HospitalsService"></bean>
+    <bean id="hospitalFacade" class="com.faikturan.hastaneotomasyonu.facade.HospitalFacade"></bean>
+    <bean id="doctorFacade" class="com.faikturan.hastaneotomasyonu.facade.DoctorFacade"></bean>
+    <bean id="doctorService" class="com.faikturan.hastaneotomasyonu.service.DoctorService"></bean>
+    <bean id="clinicService" class="com.faikturan.hastaneotomasyonu.service.ClinicService"></bean>
+    <bean id="clinicFacade" class="com.faikturan.hastaneotomasyonu.facade.ClinicFacade"></bean>
+    <bean id="patientService" class="com.faikturan.hastaneotomasyonu.service.PatientsService"></bean>
+    <bean id="patientFacade" class="com.faikturan.hastaneotomasyonu.facade.PatientFacade"></bean>
+    <bean id="clinicPlacesService" class="com.faikturan.hastaneotomasyonu.service.ClinicPlacesService"></bean>
+    <bean id="clinicPlacesFacade" class="com.faikturan.hastaneotomasyonu.facade.ClinicPlacesFacade"></bean>
+    <bean id="availableAppointmentsService" class="com.faikturan.hastaneotomasyonu.service.AvailableAppointmentsService"></bean>
+    <bean id="availableAppointmentsFacade" class="com.faikturan.hastaneotomasyonu.facade.AvailableAppointmentsFacade"></bean>
+    <bean id="takenAppointmnetsService" class="com.faikturan.hastaneotomasyonu.service.TakenAppointmentsService"></bean>
     
     <!-- Burası Yorum Yapılacak -->
     <!-- Burası Yorum Yapılacak -->
