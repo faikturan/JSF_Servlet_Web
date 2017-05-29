@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                            http://www.springframework.org/schema/jdbc 
+                            http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+                            http://www.springframework.org/schema/security 
+                            http://www.springframework.org/schema/security/spring-security-4.0.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/tx 
+                            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <security:http auto-config="true" use-expressions="true">
+        <security:csrf disabled="true"></security:csrf>
+        <security:intercept-url pattern="/index.xhtml" access="permitAll" />
+        <security:intercept-url pattern="/takingAppointment.xhtml" access="hasAnyRole('ROLE_ADMIN', 'ROLE_GUEST')" />
+
+        <!-- Spring Security 4 ile birlikte username ve passwordü parametre olarak geçirmek gerekiyor. -->
+        <security:form-login username-parameter="j_username" password-parameter="j_password" login-processing-url="/j_spring_security_check" login-page="/index.xhtml"
+                             default-target-url="/takingAppointment.xhtml" authentication-failure-url="/index.xhtml"/>
+        <security:logout logout-url="/j_spring_security_logout" invalidate-session="true" logout-success-url="/index.xhtml" />
+        <security:remember-me data-source-ref="dataSource" token-validity-seconds="86400" />
+
+    </security:http>
+
+    <security:authentication-manager>
+
+        <security:authentication-provider>
+            <security:password-encoder hash="md5"/>
+            <security:jdbc-user-service data-source-ref="dataSource"
+                                        users-by-username-query="select identitynumber,password, enabled from patients where identitynumber=?"
+                                        authorities-by-username-query="select u.identitynumber, r.role from patients u, userroles r
+                                        where u.identitynumber = r.useridentitynumber and u.identitynumber =?"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- PostConstruct Metodunun Çalışması İçin Lazım -->
+    <context:component-scan base-package="com.ilkgunel.hastaneotomasyonu.controller"/>
+     
+    <context:annotation-config/>
+    
+    <!-- Şehirler Sınıfının Spring İle Gönderilmesi -->
+    <bean id="saveAppointmentsService" class="com.ilkgunel.hastaneotomasyonu.service.SaveAppointmentsService"></bean>
+    
+    <bean id="savePatientsService" class="com.ilkgunel.hastaneotomasyonu.service.SavePatientsService"></bean>
+    <bean id="randevuSaatleriFacade" class="com.ilkgunel.hastaneotomasyonu.facade.RandevuSaatleriFacade"></bean>
+    <bean id="takenAppointmentsFacade" class="com.ilkgunel.hastaneotomasyonu.facade.TakenAppointmentsFacade"></bean>
+    <bean id="citiesFacade" class="com.ilkgunel.hastaneotomasyonu.facade.CitiesFacade"></bean>
+    <bean id="districtFacade" class="com.ilkgunel.hastaneotomasyonu.facade.DistrictsFacade"></bean>
+    <bean id="citiesService" class="com.ilkgunel.hastaneotomasyonu.service.CitiesService"></bean>
+    <bean id="districtService" class="com.ilkgunel.hastaneotomasyonu.service.DistrictService"></bean>
+    <bean id="hospitalService" class="com.ilkgunel.hastaneotomasyonu.service.HospitalsService"></bean>
+    <bean id="hospitalFacade" class="com.ilkgunel.hastaneotomasyonu.facade.HospitalFacade"></bean>
+    <bean id="doctorFacade" class="com.ilkgunel.hastaneotomasyonu.facade.DoctorFacade"></bean>
+    <bean id="doctorService" class="com.ilkgunel.hastaneotomasyonu.service.DoctorService"></bean>
+    <bean id="clinicService" class="com.ilkgunel.hastaneotomasyonu.service.ClinicService"></bean>
+    <bean id="clinicFacade" class="com.ilkgunel.hastaneotomasyonu.facade.ClinicFacade"></bean>
+    <bean id="patientService" class="com.ilkgunel.hastaneotomasyonu.service.PatientsService"></bean>
+    <bean id="patientFacade" class="com.ilkgunel.hastaneotomasyonu.facade.PatientFacade"></bean>
+    <bean id="clinicPlacesService" class="com.ilkgunel.hastaneotomasyonu.service.ClinicPlacesService"></bean>
+    <bean id="clinicPlacesFacade" class="com.ilkgunel.hastaneotomasyonu.facade.ClinicPlacesFacade"></bean>
+    <bean id="availableAppointmentsService" class="com.ilkgunel.hastaneotomasyonu.service.AvailableAppointmentsService"></bean>
+    <bean id="availableAppointmentsFacade" class="com.ilkgunel.hastaneotomasyonu.facade.AvailableAppointmentsFacade"></bean>
+    <bean id="takenAppointmnetsService" class="com.ilkgunel.hastaneotomasyonu.service.TakenAppointmentsService"></bean>
+    
+    <!-- Burası Yorum Yapılacak -->
+    <!-- Burası Yorum Yapılacak -->
+    
+    <!-- JPA Persistence Unit'i Spring'e Tanıtıyoruz. @PersistenceContext kullanılırken 
+         yeni EntityManeger tesisi için bu alan gereklidir.
+    <bean id="entityManagerFactoryToIntroduce"
+    class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" >
+        <property name="persistenceUnitName" value="HospitalAutomation"/>
+    </bean>-->
+    
+    <!-- Spring&JPA Entegrasyonunda transaction mekanizması için gerekli kısım. 
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>-->
+
+    <!-- Notasyon kullanımı için gerekli 
+    <tx:annotation-driven />-->
+    
+    <!-- Make sure the following is specified to enable transaction  -->
+  <tx:annotation-driven />
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager" 
+        id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!--  This defines the entity manager factory with some custom properties -->
+  <bean id='entityManagerFactory' 
+      class='org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean'>
+    <property name="persistenceUnitName" value="HospitalAutomation"/>
+    <property name='dataSource' ref='dataSource' />
+    <property name="jpaPropertyMap">
+        <map>
+          <entry key="eclipselink.weaving" value="false"/>
+        </map>
+    </property>
+  </bean>
+
+  <!-- This defines the hsqldb data source -->
+  <!--<bean id='dataSource' 
+      class='org.springframework.jdbc.datasource.DriverManagerDataSource'>
+    <property name='driverClassName' value='org.hsqldb.jdbc.JDBCDriver' />
+    <property name='url' value='jdbc:hsqldb:file:spring_jpa_test_db' />
+    <property name='username' value='sa' />
+    <property name='password' value='' />
+  </bean>-->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/HospitalAutomation"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
+</beans>
